@@ -1,57 +1,65 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
 
-[tool.poetry]
+[project]
 name = "toros"
 version = "0.0.1"
 description = "undeclared"
-authors = [
-    "Nikhil Sunder <nsunder724@gmail.com>",
-    "Jake Schultz <jakeschultz28@gmail.com>",
-    "John Bernardin <john.bernardin@example.com>",
-    "Rayhan Rahman <rayhan.rahman@example.com>"
-]
 readme = "README.md"
+requires-python = ">=3.10"
 license = "MIT"
-repository = "https://github.com/edgar-sec-dev-team/toros"
-documentation = "https://edgar-sec-dev-team.github.io/toros"
-packages = [{include = "toros", from = "src"}]
-include = ["src/toros/py.typed"]
+license-files = ["LICENSE"]
+authors = [
+    { name = "Nikhil Sunder", email = "nsunder724@gmail.com" },
+    { name = "Jake Schultz", email = "jakeschultz28@gmail.com" },
+    { name = "John Bernardin", email = "john.bernardin@example.com" },
+    { name = "Charlie Tucker", email = "charlietucker1919@gmail.com" },
+]
+keywords = [
+    "finance", "data analysis", "data engineering", "machine learning", "tensor",
+    "deep learning", "data representation", "financial data", "analytics", "data science", 
+    "financial modeling", "edgar", "sec", "xbrl", 
+]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Financial and Insurance Industry",
-    "Topic :: Office/Business :: Financial :: Investment"
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Typing :: Typed",
 ]
-keywords = [
-    "fred", "federal reserve", "api", "economics", "finance", "economic data", "financial data",
-    "fred pandas", "fred polars", "fred dask", "fred geopandas", "async", "pandas", "polars",
-    "dask", "geopandas", "cache", "financial analysis", "economic analysis", "data analysis",
-    "data science", "data visualization", "data mining", "data wrangling", "data cleaning"
+dependencies = [
+    "numpy",
+    "torch",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.10, <4.0"
-httpx = "*"
-cachetools = "*"
-asyncache ="*"
-tenacity = "*"
-pandas = "*"
-geopandas = "*"
+[project.urls]
+Repository = "https://github.com/edgar-sec-dev-team/toros"
+Documentation = "https://edgar-sec-dev-team.github.io/toros"
 
-[tool.poetry.group.dev.dependencies]
-pandas = "*"
+[dependency-groups]
+dev = [
+    "mypy",
+    "pylint",
+    "bandit",
+    "pytest",
+    "pytest-cov",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/toros"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/toros", "tests", "README.md", "LICENSE", "pyproject.toml"]
 
 [tool.mypy]
-files = "toros"
+files = "src/toros"
 ignore_missing_imports = true
 
 [tool.pylint]
 max-line-length = 200
-disable = ["C0415", "C2801", "C0114", "C0115", "C0116", "C0302", "C0301", "E0401", "R0902", "R0913", "R0917", "R0914", "R0912", "R0904", "R1705", "C0103", "R1710", "W0603", "R0911"]
+disable = []
 ignore-patterns = [".*\\.pyi$"]
 
 [tool.bandit]
